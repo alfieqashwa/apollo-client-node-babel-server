@@ -1,13 +1,20 @@
 import 'dotenv/config';
+import 'cross-fetch/polyfill'; // imported after install 'npm i cross-fetch --save'
+import ApolloClient from 'apollo-boost';
 
-const userCredentials = { firstname: 'Robin' };
-const userDetails = { nationality: 'German' };
+const client = new ApolloClient({
+  uri: 'https://api.github.com/graphql',
+  request: operation => {
+    operation.setContext({
+      headers: {
+        authorization: `Bearer ${
+          process.env.GITHUB_PERSONAL_ACCESS_TOKEN
+        }`,
+      },
+    });
+  },
+});
 
-const user = {
-  ...userCredentials,
-  ...userDetails,
-};
-
-console.log(user);
+console.log(client);
 
 console.log(process.env.SOME_ENV_VARIABLE);
