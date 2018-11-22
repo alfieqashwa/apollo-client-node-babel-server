@@ -1,6 +1,6 @@
 import 'dotenv/config';
 import 'cross-fetch/polyfill'; // imported after install 'npm i cross-fetch --save'
-import ApolloClient from 'apollo-boost';
+import ApolloClient, { gql } from 'apollo-boost';
 
 const client = new ApolloClient({
   uri: 'https://api.github.com/graphql',
@@ -15,6 +15,17 @@ const client = new ApolloClient({
   },
 });
 
-console.log(client);
+const GET_ORGANIZATION = gql`
+  {
+    organization(login: "the-road-to-learn-react") {
+      name
+      url
+    }
+  }
+`;
 
-console.log(process.env.SOME_ENV_VARIABLE);
+client
+  .query({
+    query: GET_ORGANIZATION,
+  })
+  .then(console.log);
