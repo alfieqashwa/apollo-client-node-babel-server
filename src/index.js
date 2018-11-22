@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import 'cross-fetch/polyfill'; // imported after install 'npm i cross-fetch --save'
+import 'cross-fetch/polyfill'; // import after install 'npm i cross-fetch --save'
 import ApolloClient, { gql } from 'apollo-boost';
 
 const client = new ApolloClient({
